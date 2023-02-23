@@ -1,0 +1,22 @@
+
+   X CODE ACCES 
+
+
+  - Voici tes accès
+Email :  admin@meneya.com
+Pass : meneya20
+
+
+    x - ACCES CMD 
+
+
+  - Étape 3 : dans la fenêtre noir (invite de commande) tu tape la commande suivante :
+
+ 
+   php artisan serve
+
+
+  X - FINIR 
+
+
+   - Étape 4 : tu démarre le logiciel xampp et ses services apache et MySQL

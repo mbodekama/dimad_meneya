@@ -1,0 +1,176 @@
+[33mcommit 65c8c47224ac80a3621af68ae63458e0df8538a2[m[33m ([m[1;36mHEAD -> [m[1;32mMBOBACKEND[m[33m, [m[1;31morigin/MBOBACKEND[m[33m)[m
+Author: IMHOTEP <boua.mbo@uvci.edu.ci>
+Date:   Thu Apr 15 22:44:20 2021 +0100
+
+    AFTER BD DEPLOIEMENT
+
+[33mcommit cec571d41137033c9492c9fad948b3328290b3c7[m
+Author: IMHOTEP <boua.mbo@uvci.edu.ci>
+Date:   Thu Apr 15 13:30:08 2021 +0100
+
+    AJOUT BD ABONNEMENT
+
+[33mcommit 14111e1535491309c852bc1fc592f655879516de[m
+Author: IMHOTEP <boua.mbo@uvci.edu.ci>
+Date:   Sat Mar 20 16:45:12 2021 +0000
+
+    SURCURSALE ONGLET OK
+
+[33mcommit 2d12e17d7e073a7481525865610b35b871311baa[m
+Author: IMHOTEP <boua.mbo@uvci.edu.ci>
+Date:   Sun Mar 14 14:54:30 2021 +0000
+
+    AFTER PAGINATATION PROCESS
+
+[33mcommit 5ef57d5f7473311db53b3da5ac2c71921006e046[m
+Author: IMHOTEP <boua.mbo@uvci.edu.ci>
+Date:   Wed Mar 10 11:55:39 2021 +0000
+
+    AFTER SEPARATION OF APP
+
+[33mcommit 3447462b352d521097aad846a9902ca56ccf1b17[m
+Author: IMHOTEP <boua.mbo@uvci.edu.ci>
+Date:   Tue Mar 9 16:34:10 2021 +0000
+
+    SEPARATION INTERFACE SUC ET ADMIN
+
+[33mcommit ed17f0f45f85bfd151c3964c152a3788a5f88fbc[m
+Author: IMHOTEP <boua.mbo@uvci.edu.ci>
+Date:   Sun Mar 7 21:05:06 2021 +0000
+
+    FIN MODIF FUSION
+
+[33mcommit 747e4306d0bf822d2514fee7428473b17da9964d[m
+Author: IMHOTEP <boua.mbo@uvci.edu.ci>
+Date:   Thu Mar 4 00:14:52 2021 +0000
+
+    FIN PRINCIPAL
+
+[33mcommit 5ea788ca8c333c95d3a2f3cbf9dafc5f841fcf63[m
+Merge: 1792dd4 91c1c77
+Author: MAATTECHNOLOGIE <74070573+MAATTECHNOLOGIE@users.noreply.github.com>
+Date:   Sun Feb 14 21:20:58 2021 +0000
+
+    Merge pull request #2 from MAATTECHNOLOGIE/ngues
+    
+    Mise à jour Meneya V2
+
+[33mcommit 91c1c77d4c54ec4bce4c68ff240ddbebb79e141c[m[33m ([m[1;31morigin/ngues[m[33m)[m
+Merge: 482ea5f 1792dd4
+Author: MAATTECHNOLOGIE <74070573+MAATTECHNOLOGIE@users.noreply.github.com>
+Date:   Sun Feb 14 21:20:45 2021 +0000
+
+    Merge branch 'main' into ngues
+
+[33mcommit 1792dd4266f57cf292b788fce721183839c7e4c3[m
+Merge: 54da960 8c1ead9
+Author: MAATTECHNOLOGIE <74070573+MAATTECHNOLOGIE@users.noreply.github.com>
+Date:   Sun Feb 14 21:14:50 2021 +0000
+
+    Merge pull request #1 from MAATTECHNOLOGIE/MBOBACKEND
+    
+    FusionVersion_14_02_21
+
+[33mcommit 8c1ead9e9afcea03a390251865ba7a47adcec4ec[m
+Author: IMHOTEP <boua.mbo@uvci.edu.ci>
+Date:   Sun Feb 14 20:54:12 2021 +0000
+
+    Comited 14_02_21
+
+[33mcommit 482ea5fd853d3a3ab09a0fe216ffebb93fad5d6e[m
+Author: ngues <74069698+nguesApps2020@users.noreply.github.com>
+Date:   Sun Feb 14 21:10:50 2021 +0100
+
+    Mise à jour Meneya V2
+
+[33mcommit 4cc5776fd2469a16c3a9ce1e30f05a98bc0e0779[m[33m ([m[1;32mmain[m[33m)[m
+Author: IMHOTEP <boua.mbo@uvci.edu.ci>
+Date:   Tue Nov 17 04:50:18 2020 +0000
+
+    Partie1 Arrivage
+
+[33mcommit 54da96046138ec5cebeb5e9eefea47792e9e4c7d[m
+Author: IMHOTEP <boua.mbo@uvci.edu.ci>
+Date:   Mon Nov 16 18:38:49 2020 +0000
+
+    Onload msg
+
+[33mcommit a98064c16f9041452eab60f291b993a3efc74edf[m
+Author: IMHOTEP <boua.mbo@uvci.edu.ci>
+Date:   Mon Nov 16 15:45:37 2020 +0000
+
+    Authentificat & dash
+
+[33mcommit a9bec332365fae4d7130767bbf4d6378785aa107[m
+Author: IMHOTEP <boua.mbo@uvci.edu.ci>
+Date:   Mon Nov 16 11:56:04 2020 +0000
+
+    Branch modif
+
+[33mcommit 9a98a2e43dada51060c038321e58b23657ccb582[m
+Author: IMHOTEP <boua.mbo@uvci.edu.ci>
+Date:   Sat Nov 14 19:29:20 2020 +0000
+
+    Modif route
+
+[33mcommit 84f9174fed3850736d430612665b9a1b0eb4da1f[m[33m ([m[1;31morigin/NGUESSFONTEND[m[33m)[m
+Merge: c5f9989 013d83f
+Author: ngues <74069698+nguesApps2020@users.noreply.github.com>
+Date:   Sat Nov 14 17:48:58 2020 +0100
+
+    New modit test2
+
+[33mcommit 013d83ff295eeec07081b9ec426fa51a80201d26[m
+Author: IMHOTEP <boua.mbo@uvci.edu.ci>
+Date:   Sat Nov 14 17:39:34 2020 +0000
+
+    test
+
+[33mcommit c5f9989612cfcef60628ebecef0883ae4c629c31[m
+Author: ngues <74069698+nguesApps2020@users.noreply.github.com>
+Date:   Sat Nov 14 17:42:11 2020 +0100
+
+    New modif test
+
+[33mcommit 9ce06bba9e6ccf73fcd86271a7bf96d379d511f9[m
+Author: ngues <74069698+nguesApps2020@users.noreply.github.com>
+Date:   Sat Nov 14 17:36:40 2020 +0100
+
+    Nouveau fichier
+
+[33mcommit 49667a12993effd42f0b1c12263ba0415eb59092[m
+Merge: 9785fd4 a07000b
+Author: ngues <74069698+nguesApps2020@users.noreply.github.com>
+Date:   Sat Nov 14 17:23:06 2020 +0100
+
+    Fusion landing
+
+[33mcommit 9785fd4bd226d4b8bfbd80fc1400137c5e749b22[m
+Author: ngues <74069698+nguesApps2020@users.noreply.github.com>
+Date:   Sat Nov 14 16:26:59 2020 +0100
+
+    landingpage meneyaV2
+
+[33mcommit a07000badf8e640f58c182ec9b69df20e349e67a[m
+Author: IMHOTEP <boua.mbo@uvci.edu.ci>
+Date:   Sat Nov 14 12:31:17 2020 +0000
+
+    Integration template
+
+[33mcommit ff23be34096ecf0e7bbeb094d66d4fcc412e2a16[m
+Author: IMHOTEP <boua.mbo@uvci.edu.ci>
+Date:   Sat Nov 14 08:23:01 2020 +0000
+
+    Fin migration & model
+
+[33mcommit 623a1e6f643352428b76e91246ef139b80ed1f81[m
+Author: IMHOTEP <boua.mbo@uvci.edu.ci>
+Date:   Fri Nov 13 15:04:58 2020 +0000
+
+    Update Guzzle
+
+[33mcommit 57c7c816fa92046377b6c7ca899d08482a117e92[m
+Author: IMHOTEP <boua.mbo@uvci.edu.ci>
+Date:   Fri Nov 13 15:00:20 2020 +0000
+
+    First commit

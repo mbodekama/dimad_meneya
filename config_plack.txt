@@ -1,0 +1,100 @@
+//LES DIFFERENTES OFFRES DE PAIEMENT 
+
+	###	PACKS ESSAIE	### 
+	###	PACKS STARTER	###
+	###	PACKS SLIVER	###
+	###	PACKS GOLD	    ###
+
+// FONCTIONNALITE DE CHAQUE PACKS
+
+   *******************
+    * PACKS ESSAIE *
+    ---------------
+Le client a acces a tous les fonctionnalites
+de l'application  mais avec des tentatives 
+d'enregistrement limitées a 05 
+   ********************
+
+
+   ******************
+    * PACKS STARTER *
+    ---------------
+    Abn => 20 000 fr 
+    Compte  => 50 000 FR
+Listing des fonctionnalité disponibles
+	- GESTION DES ARRIVAGES
+	- GESTION DES PRINCIPALE
+	- GESTION DES VENTES
+	- GESTION DES FOURNSSEUR
+
+   ********************
+
+
+   ******************
+    * PACKS MEDIUM *
+    ---------------
+    Abn => 50 000 fr 
+    Compte  => 80 000 FR
+Listing des fonctionnalité disponibles
+	- GESTION DES ARRIVAGES
+	- GESTION DES PRINCIPALE
+	- GESTION DES SUCCURSALES
+	- GESTION DES VENTES
+	- GESTION DES UTILISATEUR
+	- GESTION DES FOURNSSEUR
+	- GESTION DES PROSPECT
+   ********************
+
+
+   ******************
+    * PACKS PREMIUM *
+    ---------------
+    Abn => 100 000 fr
+    Compte => 150 000 fr
+Le client a toutes les fonctionnalité de l'application
+Listing des fonctionnalité disponibles
+	- GESTION DES ARRIVAGES
+	- GESTION DES PRINCIPALE
+	- GESTION DES SUCCURSALES
+	- GESTION DES VENTES
+	- GESTION DES UTILISATEUR
+	- GESTION DES OPERATEURS
+	- GESTION DES FOURNSSEUR
+	- GESTION DES PROSPECT
+	- CAMPAGNES MARKETING
+	- SUIVIE DE  COMMANDE
+
+   ********************
+
+
+
+   //ELABORATION FONCTIONNELLE DES RESTRICTIONS 
+   Le client rempli un formulaire depuis le landing page
+    ou il choisit son type d'offre et est guidé 
+    jusqu'a l'enregistrement et accede  son dashboard
+	**Pour chaque version choisit un test de 07 jours
+     esT accordé après quoi place au paiement 
+
+    ** A sa connexion on verifie le type d'offre (packs) souscris
+    Puis activation des restrictions de cette offre
+
+
+
+
+
+
+
+
+*************************
+    # Version Mobile
+    # CinetPay
+    # Deploiement
+************************
+
+*concurents de meneya (03)
+Message
+Promesse
+SWOT (force et faiblesse ) Meneya
+SWOT (force et faiblesse ) Concurents
+
+//nouvelle mise a jour 

@@ -1,0 +1,81 @@
+Etape de construction de paginate
+
+// 01 -- Fonction paginate dans le controller
+	Mettre paginate lors de la selections des elements
+	dans le controller (code ci-dessous)
+
+        $pagePath =  $request->path();
+        $perPage = setDefault($request->perPage,25);
+        $elmts=  elements::orderBy('id', 'desc')->paginate($perPage);
+        return view('yourViewLocation')->with('elmts',$elmts)
+                                       ->with('pagePath',$pagePath)
+                                       ->with('perPage',$perPage);
+	
+
+
+// 02 --  Propriete Links
+	$variable de recuperatuion  -> (utilise) la propriete links();
+	recuperation des pagination de laravel
+	**** Code a utiliser (placer apres fermeture table)*****
+	<div class="row no-gutters px-1 py-3 align-items-center justify-content-center">
+         {{ $elmts->links() }}
+     </div>
+
+     *** donner cet ID id="loaderContent"  au <div> parent
+     	 du <div> dont <table> est enfant *******************
+
+
+
+// 03 -- Code Jquery
+	Faire disparaitre les paginate de Javascript
+	****** code a placer dans la vue contenant le tableau   *******
+          $(".mytable").parent().next().hide();
+	mytable est une classe qu'il faut attribué au tableau de donnée
+
+##########################################################
+## 	LES ETAPES 04 à 09 NE SONT PAS NECESSAIRE SI        ## 
+##	 vous disposer du fichier pages/dash/pagnMod, vous	##
+## 	 devez alors l'inclure dans votre vue contenant		##
+## 	  le tableau. Dans le <div class="card-header">		##
+##    place avant le <div id="loaderContent"> créer  	##
+##########################################################
+
+
+************************************************************************************
+
+
+// 04 -- Premier Code Jquery 
+	Permet de actionner les bouttons de pagination Laravel 
+	$('.page-item > .page-link').click(function()
+	{
+	  event.preventDefault();
+	  var valeur = parseInt($(this).text());
+	  if(valeur>= 1)
+    {
+    	//tous les autre codes Jquery
+    }
+
+
+// 05 -- input hidden de recuperation 
+
+	Creer des input pour recup les parametre necessaire 
+	pour afficher  servant afficher la vue en cours 
+
+// 06 -- Recuperation Jquery*
+	Recuperer les variables necessaire pour loader la vue en 
+	cours et passer parametre du load 
+
+//07- Recuperer la valeur du boutton de pagination 
+	sur lequel l'utilisateur a clicke
+	Precedement stocke dans valeur a l'etape (04)
+
+// 08 --  Code Jquery
+	Faire un load sur la vue en cours avec les variable 
+	recuperer en (04) et surtout la valeur de pagniation
+
+// 09 --Nommage Parametre
+	les parametre de la vue doivent etre nomme conformement 
+	au valeur qu'elle doit utiliser dans le controller<;
+	 Quand a la variable valeur il es imperatif de nom sont parametre page
+
+*******************************************************************************
