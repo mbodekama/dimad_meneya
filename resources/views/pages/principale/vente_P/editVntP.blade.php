@@ -56,15 +56,26 @@
                         <th class="align-middle sort">
                           {{ $prdL->produitLibele  }}
                         </th>
-                        <th class="align-middle sort">{{ $prdL->qte  }}</th>
-                        <th class="align-middle sort">{{ $prdL->prixvente  }}</th>
-                        <th class="align-middle no-sort">{{ $prdL->prixvente* $prdL->qte }}</th>
-                        <td class="align-middle text-center fs-0 deleteBtn" 
-                          id="{{ $prdL->id }}"  idVnt ="{{ $vente->id }}" 
-                          style="cursor: pointer;" >
+                        <th class="align-middle sort" id="{{ "qtePrd".$prdL->ventePrdLine }}">{{ $prdL->qte  }}</th>
+                        <th class="align-middle sort" id="{{ "prixPrd".$prdL->ventePrdLine }}">{{ $prdL->prixvente  }}</th>
+                        <th class="align-middle no-sort" id="{{ "totalPrd".$prdL->ventePrdLine }}">{{ $prdL->prixvente* $prdL->qte }}</th>
+                      
+
+                        <td class="align-middle text-center d-flex " style="cursor: pointer;" >
                           <input type="hidden" id="key" value="">
-                          <span class="badge badge rounded-capsule badge-soft-danger"> &nbsp;
-                            <span class="mr-2 fas fa-trash ml-1" data-fa-transform="shrink-2"></span> &nbsp;</span>
+                          
+                            <div class="activeEdit" idPrd="{{ $prdL->id }}"  idVnt ="{{ $vente->id }}"
+                                  VntPrdLine="{{ $prdL->ventePrdLine }}"  >
+                              <span class="mr-2 fas fa-2x fa-edit text-warning "  ></span>
+                            </div>
+                            <div class="validEdit" idPrd="{{ $prdL->id }}"  idVnt ="{{ $vente->id }}"
+                                  VntPrdLine="{{ $prdL->ventePrdLine }}" >
+                            <span class="mr-2 far fa-check-square fa-2x text-primary  "  ></span>
+                            </div>
+                          <div class="deleteBtn" idPrd="{{ $prdL->id }}"  idVnt ="{{ $vente->id }}">
+                            <span class="mr-2  fas fa-2x fa-trash text-danger "  ></span>
+                          </div>
+                            
                         </td>
                       </tr>
 
@@ -301,8 +312,86 @@
           $('.deleteBtn').click(function()
           {
             var idV = $(this).attr('idVnt');
-            var idPrd =$(this).attr('id');
+            var idPrd =$(this).attr('idPrd');
             ajaxDelPrdAchat(idV,idPrd);
+          })
+
+
+
+ //Clic sur editer un prd
+          $('.activeEdit').click(function()
+          {
+            
+            $(this).next().show();
+            $(this).hide();
+            
+            let VntPrdLine = $(this).attr('VntPrdLine');
+            let idV = $(this).attr('idVnt');
+            let idPrd =$(this).attr('idPrd');
+
+            // selection de la colonne quatite & prix
+            let selecteur1 = "#qtePrd"+VntPrdLine;
+            let qtePrd = $(selecteur1);
+
+            let selecteur2 = "#prixPrd"+VntPrdLine;
+            let prixPrd = $(selecteur2);
+
+            //rendre editable les colonnes
+            qtePrd.attr('contenteditable','true');
+            prixPrd.attr('contenteditable','true');
+
+      
+          })
+
+    //Clic sur valider edition un prd
+          $('.validEdit').hide() //cacher par défaut
+
+          $('.validEdit').click(function()
+          {
+            $(this).prev().show();
+            $(this).hide();
+
+            let VntPrdLine = $(this).attr('VntPrdLine');
+            var idV = $(this).attr('idVnt');
+            var idPrd =$(this).attr('idPrd');
+            console.log(VntPrdLine);
+
+            // selection de la colonne quatite & prix & total
+            let selecteur1 = "#qtePrd"+VntPrdLine;
+            let qtePrd = $(selecteur1);
+
+            let selecteur2 = "#prixPrd"+VntPrdLine;
+            let prixPrd = $(selecteur2);
+
+            let selecteur3 = "#totalPrd"+VntPrdLine;
+            totalPrixPrd = $(selecteur3);
+
+            console.log(selecteur1);
+            console.log(selecteur2);
+            console.log(selecteur3);
+            //rendre editable les colonnes
+            qtePrd.attr('contenteditable','false');
+            prixPrd.attr('contenteditable','false');
+
+                      $.ajax({
+                        url:'mbo/updPrdVnt',
+                        method:'GET',
+                        data:{idPrd:idPrd,idVnt:idV,
+                              newQte:parseInt(qtePrd.text()),
+                              newPrix:parseInt(prixPrd.text())},
+                        dataType:'json',
+                        success:function(data){
+                          toastr.success('Article mis à jour');
+                          
+                          //update prix net et total
+                          totalPrixPrd.text(data.prdTotal);
+
+                        },
+                        error:function(data){
+                          toastr.error('Echec de mise à jour');
+                          
+                        }
+                      });
           })
     
     //clic sur suppression achat 

@@ -129,9 +129,11 @@
                   </div>
 
                   <div class="form-group col-2">
+
+                 
                   <button class="btn btn-sm btn-primary fs-1" id="enregistreAchat"
-                    idVnt='{{ $arriv->id }}'
-                  >Mettre a jour
+                    idVnt='{{ $arriv->id }}'>
+                    Actualiser
                   </button>
                   </div> 
 
@@ -227,7 +229,7 @@
       $('#enregistreAchat').click(function()
         {
         //Affectation au recu 
-          var idVnt = $(this).attr('idVnt');
+          var idArr = $(this).attr('idVnt');
           $('#descritptionCharge').text($('#chargeLibelle').val());
           var typeFacture = $('#type option:selected').attr('typeFacture');
             $('#typeVente').text(typeFacture);
@@ -235,37 +237,26 @@
           var chargeLibelle = $('#chargeLibelle').val();
           var type = $('#type').val();
           var date = $('#dateV').val();
+          var input = '#mytoken input[name=_token]';
+          var token = $(input).attr('value');
 
           if($('#dateV').val() != "")
           {
-            Swal.fire({
-              title: 'Vente',
-              text: "Voulez vous enregistrer les modifications apporté?",
-              icon: 'warning',
-              showCancelButton: true,
-              confirmButtonColor: '#3085d6',
-              cancelButtonColor: '#d33',
-              cancelButtonText: 'Annuler',
-              confirmButtonText: 'oui , valider!'
-            }).then((result) => {
-                if (result.value) {
                   $.ajax({
                     url:'mbo/updArriv',
                     method:'GET',
-                    data:{idVnt:idVnt,charge:charge,dateV:date,chargeLibelle:chargeLibelle,type:type},
+                    data:{idVnt:idArr,charge:charge,dateV:date,chargeLibelle:chargeLibelle,type:type},
                     dataType:'text',
                     success:function(data){
   
                         msgSucces();
                         
-                        $("#main_content").load("mbo/arrivAttn");
+                        $('#main_content').load('mbo/editArriv',{idArr:idArr, _token:token}); 
                     },
                     error:function(){
                       Swal.fire('Problème de connection internet');
                     }
-                  });
-                }
-            })
+                  })
           }
           else
           {
@@ -444,8 +435,8 @@
           function msgSucces()
           {
                       Swal.fire(
-                       'Valider!',
-                       'Vente enregistrer avec succès.',
+                       'Mis à jour',
+                       'Verifiez le total',
                        'success'
                       );
           }

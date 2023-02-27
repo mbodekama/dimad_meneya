@@ -297,6 +297,10 @@ use Illuminate\Support\Facades\Route;
        //Suprimer un prduit d'une vente de la principales
        Route::get('delPrdVnt','GestionVentePrincipalController@delPrdVnt'); 
 
+       //Update un produit de la vente
+       Route::get('updPrdVnt','GestionVentePrincipalController@updPrdVnt'); 
+       
+
 
        
 

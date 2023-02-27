@@ -384,6 +384,61 @@ class GestionVentePrincipalController extends Controller
             return response()->json();
           }
 
+    //Update d'un produit de la vente 
+        public function updPrdVnt(Request $request)
+        {
+          $vente= vente_principales::find($request->idVnt);
+          $prd= produits_has_vente_principales::find($request->idPrd);
+
+
+          //Soustraction du montant du prd avec ses anciens parametre (prix qte)
+            $prixVntPrd = $prd->prixvente * $prd->qte;
+            $coutAchaPrd = getPrd($prd->produits_id)->produitPrixFour * $prd->qte;
+            $vente->cout_achat_total = $vente->cout_achat_total- $coutAchaPrd;
+            $vente->prix_vente_total = $vente->prix_vente_total - $prixVntPrd;
+
+            $vente->mg_benef_brute = $vente->prix_vente_total - $vente->cout_achat_total;
+            $vente->mg_benef_rel = $vente->prix_vente_total - ($vente->cout_achat_total + $vente->charge);
+            $vente->qte = $vente->qte- $prd->qte;
+
+
+          //Ajout du prduit avec new paramètres (prix_new, qte_new)
+
+          //update du produit
+            $prd->qte   = $request->newQte;
+            $prd->prixvente = $request->newPrix;
+
+            $prixVntPrd = $request->newPrix * $request->newQte;
+            $coutAchaPrd = getPrd($prd->produits_id)->produitPrixFour * $prd->qte;
+            $vente->cout_achat_total = $vente->cout_achat_total + $coutAchaPrd;
+            $vente->prix_vente_total = $vente->prix_vente_total + $prixVntPrd;
+
+            $vente->mg_benef_brute = $vente->prix_vente_total - $vente->cout_achat_total;
+            $vente->mg_benef_rel = $vente->prix_vente_total - ($vente->cout_achat_total + $vente->charge);
+            $vente->qte = $vente->qte + $prd->qte;
+
+
+
+          //Verification du type de vente ( 0 => facture pro //  1 => vente)
+            if ($vente->typevente==1) 
+            {
+              # Actualisation du stock principale
+                $prdStck = stock_principales::where('produits_id','=',$prd->produits_id)->first();
+               
+                $prdStck->stock_Qte = $prdStck->stock_Qte + $prd->qte;
+                $prdStck->save();
+            }
+
+ 
+            $vente->save();
+            
+            $prd->save();
+
+
+            return response()->json(
+                ['vntPrix'=>$vente->prix_vente_total,'prdTotal'=>$request->newQte*$request->newPrix]);
+        }
+
     //Validation d'une facture proformat
       public function validVnt(Request $request)
           {
@@ -684,6 +739,9 @@ class GestionVentePrincipalController extends Controller
         }
 
 
+
+
+
   //Edition d'une vente 
       public function editVntP(Request $request)
       {
@@ -692,7 +750,7 @@ class GestionVentePrincipalController extends Controller
 
              $prd = DB::table('produits_has_vente_principales')
             ->join('produits', 'produits.id', '=', 'produits_has_vente_principales.produits_id')
-            ->select('produits.*', 'produits_has_vente_principales.*')
+            ->select('produits.*', 'produits_has_vente_principales.*','produits_has_vente_principales.id as ventePrdLine')
             ->where('vente_principales_id','=',$request->idV)
             ->get();
             return view('pages/principale/vente_P/editVntP')->with('vente',$vente)
