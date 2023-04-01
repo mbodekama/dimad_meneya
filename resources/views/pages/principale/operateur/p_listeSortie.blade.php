@@ -296,6 +296,9 @@
                           style="cursor: pointer;">
 
                         <span class='fas fa-list-alt fa-2x  text-primary mr-2 liste' 
+                        id="{{ $sortie->id }}"></span>
+
+                        <span class='fas fa-edit fa-2x  text-primary mr-2 edit' 
                         id="{{ $sortie->id }}"></span> 
 
                         <span class='far fa-file-pdf fa-2x text-warning reçu' 
@@ -508,6 +511,19 @@ $(function()
             
 
          });
+
+      $('.edit').click(function(){
+
+             var idOpVe = $(this).attr('id');
+             var operationcode = $('.operaCode').attr('operacode');
+             var operation = $('.operaName').attr('operaname');
+             var token = $('input[name=_token]').val();
+
+            $("#main_content").load("/p_editSortie",{idOpVe:idOpVe,_token:token});
+
+
+      })
+
 
       $('.reçu').click(function()
 

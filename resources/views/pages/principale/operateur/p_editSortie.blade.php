@@ -7,25 +7,25 @@
                   <div class="form-group col-4">
                     <label for='chargeLibelle'> Description  charge</label>
                     <input class="form-control " id="chargeLibelle" name="chargeLibelle" type="text" placeholder="livraison, transport..." maxlength="100"
-                    value="{{ $vente->description_charge }}">
+                    value="{{ $sortie->chargesDesc }}">
                   </div>
                   <div class="form-group col-2">
                     <label for='chargeVal'> Montant ( en {{ getMyDevise() }}) </label>
-                    <input class="form-control " id="chargeVal" name="chargeVal" type="number" value="{{$vente->charge  }}">
+                    <input class="form-control " id="chargeVal" name="chargeVal" type="number" value="{{$sortie->charges  }}">
                   </div>
                   <div class="form-group col-2">
-                    <label for='dateV'> Date vente <span class="fas fa-times-circle text-danger" data-fa-transform="shrink-1" ></span></label>
+                    <label for='dateV'> Date sortie <span class="fas fa-times-circle text-danger" data-fa-transform="shrink-1" ></span></label>
 
-                    <input class="form-control datetimepicker" id="dateV" name="dateV" type="text" data-options='{"dateFormat":"d/m/Y"}' value="{{$vente->dateV }}">
+                    <input class="form-control datetimepicker" id="dateV" name="dateV" type="text" data-options='{"dateFormat":"d/m/Y"}' value="{{$sortie->dateSortie }}">
                   </div>                 
                   <div class="form-group col-1 ">
                     <label for='retour'> Annuler </label>
-                      <button class="btn btn-sm btn-secondary " id="retour" type="{{ $vente->typevente }}"
+                      <button class="btn btn-sm btn-secondary " id="retour" 
                       >Retour</button>
                   </div> 
                   <div class="form-group col-2">
                     <label for='deleteAchat'> Suprimer vente </label>
-                      <button class="btn btn-sm btn-danger " id="deleteAchat" idV="{{ $vente->id }}">Suprimer</button>
+                      <button class="btn btn-sm btn-danger " id="deleteAchat" idV="{{ $sortie->id }}">Suprimer</button>
                   </div> 
               </div>
     </div>
@@ -39,7 +39,7 @@
                         <th class="align-middle sort">Id</th>
                         <th class="align-middle sort">Produits</th>
                         <th class="align-middle sort">Qte</th>
-                        <th class="align-middle sort">Prix/Unit</th>
+                        <th class="align-middle sort">Coût achat/Unit</th>
                         <th class="align-middle no-sort">Prix Net</th>
                         <th class="no-sort pr-1 align-middle data-table-row-action">Action</th>
 
@@ -50,32 +50,30 @@
                         @php
                            $total=0;
                          @endphp
-                      @foreach ($prd as $prdL) 
-                      <tr>
-                        <th class="align-middle sort"></th>
+                      @foreach ($ligne_sortie as $prdL) 
+                      <tr class="ligneVente">
+                        <th class="align-middle sort">{{ $loop->iteration }}</th>
                         <th class="align-middle sort">
                           {{ $prdL->produitLibele  }}
                         </th>
-                        <th class="align-middle sort" id="{{ "qtePrd".$prdL->ventePrdLine }}">{{ $prdL->qte  }}</th>
-                        <th class="align-middle sort" id="{{ "prixPrd".$prdL->ventePrdLine }}">{{ $prdL->prixvente  }}</th>
-                        <th class="align-middle no-sort" id="{{ "totalPrd".$prdL->ventePrdLine }}">{{ $prdL->prixvente* $prdL->qte }}</th>
-                      
-
+                        <th class="align-middle sort fs-1" id="{{ "qtePrd".$prdL->id }}">
+                            {{ $prdL->qteproduits  }}</th>
+                        <th class="align-middle sort fs-1" id="{{ "prixPrd".$prdL->id }}">
+                            {{ $prdL->coutachat }}</th>
+                        <th class="align-middle no-sort fs-1" id="{{ "totalPrd".$prdL->id }}">
+                            {{ $prdL->coutachat* $prdL->qteproduits }}</th>
                         <td class="align-middle text-center d-flex " style="cursor: pointer;" >
                           <input type="hidden" id="key" value="">
                           
-                            <div class="activeEdit" idPrd="{{ $prdL->id }}"  idVnt ="{{ $vente->id }}"
-                                  VntPrdLine="{{ $prdL->ventePrdLine }}"  >
+                            <div class="activeEdit" idPrd="{{ $prdL->id }}"  idVnt ="{{ $sortie->id }}"
+                                  arrivPrdLine="{{ $prdL->id }}"  >
                               <span class="mr-2 fas fa-2x fa-edit text-warning "  ></span>
                             </div>
-                            <div class="validEdit" idPrd="{{ $prdL->id }}"  idVnt ="{{ $vente->id }}"
-                                  VntPrdLine="{{ $prdL->ventePrdLine }}" >
+                            <div class="validEdit" idPrd="{{ $prdL->id }}"  idVnt ="{{ $sortie->id }}"
+                                  arrivPrdLine="{{ $prdL->id }}" >
                             <span class="mr-2 far fa-check-square fa-2x text-primary  "  ></span>
                             </div>
-                            
-
-                            
-                          <div class="deleteBtn" idPrd="{{ $prdL->id }}"  idVnt ="{{ $vente->id }}">
+                          <div class="deleteBtn" idPrd="{{ $prdL->id }}"  idVnt ="{{ $sortie->id }}">
                             <span class="mr-2  fas fa-2x fa-trash text-danger "  ></span>
                           </div>
                             
@@ -83,7 +81,7 @@
                       </tr>
 
                         @php
-                        $total += $prdL->prixvente* $prdL->qte; 
+                        $total += $prdL->coutachat* $prdL->qteproduits; 
                         @endphp
                        @endforeach
                        @else
@@ -106,11 +104,11 @@
                     <tr>
                       <th class="text-900">Charges</th>
                       <td class="font-weight-semi-bold" >
-                        <span id="chargeCol"> {{ $vente->charge }} </span> {{ getMyDevise() }} </td>
+                        <span id="chargeCol"> {{ $sortie->charge }} </span> {{ getMyDevise() }} </td>
                     </tr>
                     <tr class="border-top border-2x font-weight-bold text-900">
                       <th>Total TTC </th>
-                      <td class="valeurTTC"> {{ formatPrice($total+($vente->charge)) }} </td>
+                      <td class="valeurTTC"> {{ formatPrice($total+($sortie->charge)) }} </td>
                     </tr>
                   </tbody></table>
                 </div>
@@ -126,45 +124,25 @@
                     {{-- <label for='retour'>  </label> --}}
                 <button class="btn btn-falcon-danger btn-sm mr-2 fs-1" role="button">
                   Total: 
-                 <span class="valeurTTC"> {{ formatPrice($total+($vente->charge)) }} </span>
+                 <span class="valeurTTC"> {{ formatPrice($total+($sortie->charge)) }} </span>
                 </button>
                   </div>
 
-                  <div class="form-group col-4">
-                    @if($vente->typevente == 1)
-                      <select class="form-control" id="type">
-                        <option value="1" typeFacture ="Facture d'achat"
-                        @if($vente->typevente == 1) selected @endif>
-                          Vente
-                        </option>
-                      </select>
-                    @else
-                      <select class="form-control" id="type">
-                        <option value="0" typeFacture ='Facture Proformat'
-                        @if($vente->typevente == 0) selected @endif>
-                          Facture Proformat
-                        </option>
-
-                        <option value="1" typeFacture ="Facture d'achat"
-                        @if($vente->typevente == 1) selected @endif>
-                          Vente
-                        </option>
-                      </select>
-                    @endif
-                  </div>
                   <div class="form-group col-2">
+
+                 
                   <button class="btn btn-sm btn-primary fs-1" id="enregistreAchat"
-                    idVnt='{{ $vente->id }}'
-                  >Mettre a jour
+                    idVnt='{{ $sortie->id }}'>
+                    Actualiser
                   </button>
                   </div> 
 
-            </div>
+                </div>
           </div>
 
 
           <div id="mytoken">
-            <input type="hidden" name="id_succursale" id="idSuc" value="{{ $vente->clients_id }}">
+            <input type="hidden" name="id_succursale" id="idSuc" value="{{ $sortie->clients_id }}">
             @csrf
           </div>
 
@@ -186,8 +164,8 @@
         $('#retour').click(function()
           {
             var type = $(this).attr('type');
-            if (type == 0) {$('#main_content').load('/mbo/lfactuProP');}
-            else {$('#main_content').load('/mbo/lventeP');}
+            if (type == 0) {$('#main_content').load('/mbo/arrivAttn');}
+            else {$('#main_content').load('/mbo/arrivOk');}
             
           });
 
@@ -251,7 +229,7 @@
       $('#enregistreAchat').click(function()
         {
         //Affectation au recu 
-          var idVnt = $(this).attr('idVnt');
+          var idArr = $(this).attr('idVnt');
           $('#descritptionCharge').text($('#chargeLibelle').val());
           var typeFacture = $('#type option:selected').attr('typeFacture');
             $('#typeVente').text(typeFacture);
@@ -259,51 +237,26 @@
           var chargeLibelle = $('#chargeLibelle').val();
           var type = $('#type').val();
           var date = $('#dateV').val();
+          var input = '#mytoken input[name=_token]';
+          var token = $(input).attr('value');
 
           if($('#dateV').val() != "")
           {
-            Swal.fire({
-              title: 'Vente',
-              text: "Voulez vous enregistrer les modifications apporté?",
-              icon: 'warning',
-              showCancelButton: true,
-              confirmButtonColor: '#3085d6',
-              cancelButtonColor: '#d33',
-              cancelButtonText: 'Annuler',
-              confirmButtonText: 'oui , valider!'
-            }).then((result) => {
-                if (result.value) {
                   $.ajax({
-                    url:'mbo/updAchat',
+                    url:'mbo/updArriv',
                     method:'GET',
-                    data:{idVnt:idVnt,charge:charge,dateV:date,chargeLibelle:chargeLibelle,type:type},
+                    data:{idVnt:idArr,charge:charge,dateV:date,chargeLibelle:chargeLibelle,type:type},
                     dataType:'text',
                     success:function(data){
-                      //Impression de recu
-                        // printRecu(parseInt(data)); 
-                          //mise en atente du mesage de succes pour
-                          //pouvoir afficher le recu en chargement
-                        setTimeout(msgSucces, 1000); 
+  
+                        msgSucces();
                         
-                       if ($('#type').val() =='0') 
-                       {
-                        //Retourner la vue des facture proformat
-                        $("#main_content").load("mbo/lfactuProP");
-
-                       }
-                       else
-                       {
-                        //Retourner la vue des liste des ventes
-                        $("#main_content").load("mbo/lventeP");
-
-                       }
+                        $('#main_content').load('mbo/editArriv',{idArr:idArr, _token:token}); 
                     },
                     error:function(){
                       Swal.fire('Problème de connection internet');
                     }
-                  });
-                }
-            })
+                  })
           }
           else
           {
@@ -314,29 +267,28 @@
     //Clic sur suprimer un prd
           $('.deleteBtn').click(function()
           {
+            
             var idV = $(this).attr('idVnt');
             var idPrd =$(this).attr('idPrd');
             ajaxDelPrdAchat(idV,idPrd);
           })
 
-
-
- //Clic sur editer un prd
+    //Clic sur editer un prd
           $('.activeEdit').click(function()
           {
             
             $(this).next().show();
             $(this).hide();
             
-            let VntPrdLine = $(this).attr('VntPrdLine');
+            let arrivPrdLine = $(this).attr('arrivPrdLine');
             let idV = $(this).attr('idVnt');
             let idPrd =$(this).attr('idPrd');
 
             // selection de la colonne quatite & prix
-            let selecteur1 = "#qtePrd"+VntPrdLine;
+            let selecteur1 = "#qtePrd"+arrivPrdLine;
             let qtePrd = $(selecteur1);
 
-            let selecteur2 = "#prixPrd"+VntPrdLine;
+            let selecteur2 = "#prixPrd"+arrivPrdLine;
             let prixPrd = $(selecteur2);
 
             //rendre editable les colonnes
@@ -354,30 +306,26 @@
             $(this).prev().show();
             $(this).hide();
 
-            let VntPrdLine = $(this).attr('VntPrdLine');
+            let arrivPrdLine = $(this).attr('arrivPrdLine');
             var idV = $(this).attr('idVnt');
             var idPrd =$(this).attr('idPrd');
-            console.log(VntPrdLine);
 
             // selection de la colonne quatite & prix & total
-            let selecteur1 = "#qtePrd"+VntPrdLine;
+            let selecteur1 = "#qtePrd"+arrivPrdLine;
             let qtePrd = $(selecteur1);
 
-            let selecteur2 = "#prixPrd"+VntPrdLine;
+            let selecteur2 = "#prixPrd"+arrivPrdLine;
             let prixPrd = $(selecteur2);
 
-            let selecteur3 = "#totalPrd"+VntPrdLine;
+            let selecteur3 = "#totalPrd"+arrivPrdLine;
             totalPrixPrd = $(selecteur3);
 
-            console.log(selecteur1);
-            console.log(selecteur2);
-            console.log(selecteur3);
             //rendre editable les colonnes
             qtePrd.attr('contenteditable','false');
             prixPrd.attr('contenteditable','false');
 
                       $.ajax({
-                        url:'mbo/updPrdVnt',
+                        url:'mbo/updPrdArriv',
                         method:'GET',
                         data:{idPrd:idPrd,idVnt:idV,
                               newQte:parseInt(qtePrd.text()),
@@ -396,6 +344,10 @@
                         }
                       });
           })
+
+
+
+
     
     //clic sur suppression achat 
         $('#deleteAchat').click(function()
@@ -410,7 +362,7 @@
         {
                 Swal.fire({
                   title: 'Suppresion',
-                  text: "Voulez vous supprimer cette vente ?",
+                  text: "Voulez vous supprimer cet arrivage ?",
                   icon: 'warning',
                   showCancelButton: true,
                   confirmButtonColor: '#3085d6',
@@ -420,20 +372,17 @@
                 }).then((result) => {
                     if (result.value) {
                       $.ajax({
-                        url:'mbo/delVntP',
+                        url:'mbo/arrivDel',
                         method:'GET',
-                        data:{idVente:idVnt},
+                        data:{idArr:idVnt},
                         dataType:'json',
                         success:function(){
                           Swal.fire(
                            'Suppression!',
-                           'Vente suipprimé avec succès',
+                           'Arrivage suipprimé avec succès',
                            'success'
                           );
-            var type = $(this).attr('type');
-            if (type == 0) {$('#main_content').load('/mbo/lfactuProP');}
-            else {$('#main_content').load('/mbo/lventeP');}
-                          $("#main_content").load("mbo/venteP");
+                          $("#main_content").load("mbo/arrivAttn");
                         },
                         error:function(){
                           Swal.fire('Problème de connexion internet');
@@ -447,6 +396,8 @@
     //Function de supression dun  prd
         function ajaxDelPrdAchat(idV,idPrd)
         {
+          var input = '#mytoken input[name=_token]';
+          var token = $(input).attr('value');
                 Swal.fire({
                   title: 'Suppresion',
                   text: "Voulez vous supprimer ce produit de la commande ?",
@@ -459,21 +410,16 @@
                 }).then((result) => {
                     if (result.value) {
                       $.ajax({
-                        url:'mbo/delPrdVnt',
+                        url:'mbo/delPrdArriv',
                         method:'GET',
                         data:{idPrd:idPrd,idVnt:idV},
                         dataType:'json',
                         success:function(){
-                          Swal.fire(
-                           'Supression!',
-                           'Produit suipprimé avec succès',
-                           'success'
-                          );
-                          var token = $('input[name=_token]').val();
-                          $("#main_content").load("mbo/editVntP",{idPrd:idPrd,idV:idV, _token:token});
+                          toastr.success('Suprimé avec succès');
+                          $("#main_content").load("mbo/editArriv",{idArr:idV, _token:token});
                         },
                         error:function(){
-                          Swal.fire('Problème de connexion internet');
+                          toastr.success('Problème de connexion');
                         }
                       });
                     }
@@ -482,36 +428,15 @@
         }
 
 
-    //Impression du recu
-        function printRecu(data)
-        {
-       
-               var idVnt = data;              
-          $.ajax({
-                 url:'mbo/recuVntP',
-                 method:'get',
-                 data:{NumVente:idVnt},
-                 dataType:'html',
-                 success:function(data)
-                 {
-                   $('#recu_content').html('');
-                   $('#recu_content').html(data);
-                    print();
-                 },
-                 error:function()
-                 {
-                  toastr.error('Erreur ');
-                 },
 
-               });
-                  }
 
+    //Message de succes
 
           function msgSucces()
           {
                       Swal.fire(
-                       'Valider!',
-                       'Vente enregistrer avec succès.',
+                       'Mis à jour',
+                       'Verifiez le total',
                        'success'
                       );
           }

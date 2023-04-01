@@ -1097,6 +1097,56 @@ class p_OperaController extends Controller
     }
 
 
+    // Récupération des sorites d'une opération
+    public function p_editSortie(Request $request)
+
+    {
+        
+      // Réception de l'id de la sortie
+       $sortieID = $request->idOpVe;
+
+      // Lecture de la sortie en fonction de l'id sortie
+        $sortie = DB::table('sortie_ops')
+                  ->select('sortie_ops.*')
+                  ->where('sortie_ops.id','=',$sortieID)
+                  ->first();
+
+      // Lecture de l'opérateur lié à la sortie
+        $operateurOperation = DB::table('operation_has_operateurs')
+                  ->select('operation_has_operateurs.*')
+                  ->where('operation_has_operateurs.id','=',
+                    $sortie->operationsOperateurs_id)
+                  ->first();
+
+        $operateur = DB::table('operateurs')
+          ->select('operateurs.*')
+          ->where('operateurs.id','=',$operateurOperation->operateurs_id)
+          ->first();
+        //dd($operateur);
+
+
+      //Lecture de la table produits_has_sortie_ops -> id
+        $ligne_sortie = DB::table('produits_has_sortie_ops')
+                 ->join('produits','produits_has_sortie_ops.produits_id',     '=','produits.id')
+            ->select('produits.*', 'produits_has_sortie_ops.*')
+            ->where('produits_has_sortie_ops.sortie_ops_id','=',
+                    $sortieID)
+            ->get();
+
+            // dd($sortie);
+            // dd($operateur);
+            // dd($ligne_sortie);
+          return view('pages/principale/operateur/p_editSortie')
+                    ->with('sortie_info',$sortie)
+                    ->with('operateur',$operateur)
+                    ->with('ligne_sortie',$ligne_sortie);
+
+    }
+
+
+
+
+
 
 
 

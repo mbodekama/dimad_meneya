@@ -127,6 +127,12 @@ use Illuminate\Support\Facades\Route;
          Route::get('p_opRecuSorti','p_OperaController@p_opRecuSorti')->name('p_opRecuSorti');
 
 
+        //Edition des lignes dune sortie
+         Route::post('p_editSortie','p_OperaController@p_editSortie')->name('p_editSortie');
+
+         
+
+
 
         // Suppression d'une sortie
          Route::get('p_SortieDel','p_OperaController@p_SortieDel')->name('p_SortieDel');
